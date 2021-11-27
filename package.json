@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js, .jsx"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,12 @@
     "express-rescue": "^1.1.31",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-trybe-backend": "^1.0.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-mocha": "^9.0.0",
+    "eslint-plugin-sonarjs": "^0.10.0"
   }
 }
