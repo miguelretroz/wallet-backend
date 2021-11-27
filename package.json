@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/MiguelRetroz/wallet-backend/issues"
   },
-  "homepage": "https://github.com/MiguelRetroz/wallet-backend#readme"
+  "homepage": "https://github.com/MiguelRetroz/wallet-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rescue": "^1.1.31",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.2.0"
+  }
 }
