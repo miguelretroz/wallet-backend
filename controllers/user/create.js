@@ -1,8 +1,14 @@
 const rescue = require('express-rescue');
 const statusCodes = require('http-status-codes').StatusCodes;
 
+const { UserServices } = require('../../services');
+
 module.exports = rescue(
-  (req, res) => {
-    res.status(statusCodes.NOT_IMPLEMENTED).end();
+  async (req, res) => {
+    const userData = req.body;
+
+    const newUser = await UserServices.create(userData);
+
+    res.status(statusCodes.CREATED).json(newUser);
   },
 );
