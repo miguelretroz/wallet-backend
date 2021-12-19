@@ -5,9 +5,23 @@ const { UserServices } = require('../../services');
 
 module.exports = rescue(
   async (req, res) => {
-    const userData = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      repeatPassword,
+      birthDate,
+    } = req.body;
 
-    const newUser = await UserServices.create(userData);
+    const newUser = await UserServices.create({
+      firstName,
+      lastName,
+      email,
+      password,
+      repeatPassword,
+      birthDate,
+    });
 
     res.status(statusCodes.CREATED).json(newUser);
   },

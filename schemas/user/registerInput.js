@@ -42,10 +42,17 @@ const emailValidator = (email) => {
     case (!isString(email)):
       return ApiError.error(errors.incorrectType(fieldName, 'string'));
     case (!emailChecker(email)):
-      return ApiError.error(errors.incorrectFormat(fieldName, "email@email.com"));
+      return ApiError.error(errors.incorrectFormat(fieldName, emailCorrectFormat));
     default:
       return {};
   }
+};
+
+const birthDataValidator = (birthDate) => {
+  const fieldName = 'birthDate';
+  const regexDate = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
+
+  if (!regexDate.test(birthDate)) ApiError.error(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
 };
 
 module.exports = (
@@ -55,12 +62,12 @@ module.exports = (
     email,
     // password,
     // repeatPassword,
-    // birthData,
+    birthDate,
   },
 ) => {
   namesValidator(firstName, 'firstName', 4);
   namesValidator(lastName, 'lastName', 4);
   emailValidator(email);
   // passwordValidator(password, repeatPassword);
-  // birthDataValidator(birthData);
+  birthDataValidator(birthDate);
 };
