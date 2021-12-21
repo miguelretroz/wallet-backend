@@ -39,9 +39,17 @@ const emailValidator = (email) => {
 
 const birthDataValidator = (birthDate) => {
   const fieldName = 'birthDate';
-  const regexDate = /^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
 
-  if (!regexDate.test(birthDate)) ApiError.error(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
+  switch (true) {
+    case (!birthDate):
+      return ApiError.error(errors.isRequired(fieldName));
+    case (!isString(birthDate)):
+      return ApiError.error(errors.incorrectType(fieldName, 'string'));
+    case (!regex.date.test(birthDate)):
+      return ApiError.error(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
+    default:
+      return {};
+  }
 };
 
 const passwordValidator = (password, repeatPassword) => {
