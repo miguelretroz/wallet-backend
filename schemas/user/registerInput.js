@@ -57,6 +57,10 @@ const birthDataValidator = (birthDate) => {
 
 const passwordValidator = (password, repeatPassword) => {
   if (password !== repeatPassword) ApiError.error(errors.incorrectPasswordRepeat());
+
+  const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&*()-+_={}[\]~^?]).{8,20}$/;
+
+  if (!regexPassword.test(password)) ApiError.error(errors.incorrectPasswordFormat());
 };
 
 module.exports = (

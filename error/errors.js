@@ -25,10 +25,18 @@ const incorrectPasswordRepeat = () => ({
   message: 'password repeat must be equal password',
 });
 
+/* eslint-disable*/
+const incorrectPasswordFormat = () => ({
+  status: BAD_REQUEST,
+  message: '"password" must be have at least 8 characters long, 1 uppercase and 1 lowercase character, 1 number and 1 special character (!@#$%&*()-+_={}[]~^?)',
+});
+/* eslint-enable */
+
 module.exports = {
   isRequired,
   incorrectType,
   shortLength,
   incorrectFormat,
   incorrectPasswordRepeat,
+  incorrectPasswordFormat,
 };
