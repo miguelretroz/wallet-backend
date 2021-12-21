@@ -55,19 +55,23 @@ const birthDataValidator = (birthDate) => {
   if (!regexDate.test(birthDate)) ApiError.error(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
 };
 
+const passwordValidator = (password, repeatPassword) => {
+  if (password !== repeatPassword) ApiError.error(errors.incorrectPasswordRepeat());
+};
+
 module.exports = (
   {
     firstName,
     lastName,
     email,
-    // password,
-    // repeatPassword,
+    password,
+    repeatPassword,
     birthDate,
   },
 ) => {
   namesValidator(firstName, 'firstName', 4);
   namesValidator(lastName, 'lastName', 4);
   emailValidator(email);
-  // passwordValidator(password, repeatPassword);
+  passwordValidator(password, repeatPassword);
   birthDataValidator(birthDate);
 };
