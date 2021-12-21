@@ -52,13 +52,24 @@ const birthDataValidator = (birthDate) => {
   }
 };
 
+/* eslint-disable*/
 const passwordValidator = (password, repeatPassword) => {
-  if (password !== repeatPassword) ApiError.error(errors.incorrectPasswordRepeat());
+  const fieldName = 'password and repeatName';
 
-  const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&*()-+_={}[\]~^?]).{8,20}$/;
-
-  if (!regexPassword.test(password)) ApiError.error(errors.incorrectPasswordFormat());
+  switch (true) {
+    case (!password || repeatPassword):
+      return ApiError.error(errors.isREquired(fieldName));
+    case (!isString(password) || !isString(repeatPassword)):
+      return ApiError.error(errors.incorrectType(fieldName));
+    case (!regex.password.test(password)):
+      return ApiError.error(errors.incorrectPasswordFormat());
+    case (password !== repeatPassword):
+      return ApiError.error(errors.incorrectPasswordRepeat());
+    default:
+      return {};
+  }
 };
+/*  eslint-enable */
 
 module.exports = (
   {
