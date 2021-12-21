@@ -13,7 +13,7 @@ const namesValidator = (field, fieldName, minLenght) => {
     case (!field):
       return ApiError.error(errors.isRequired(fieldName));
     case (!isString(field)):
-      return ApiError.error(errors.incorrectType(fieldName));
+      return ApiError.error(errors.incorrectType(fieldName, 'string'));
     case (!hasMinSize(field, minLenght)):
       return ApiError.error(errors.shortLength(fieldName, minLenght));
     default:
@@ -60,7 +60,7 @@ const passwordValidator = (password, repeatPassword) => {
     case (!password || repeatPassword):
       return ApiError.error(errors.isREquired(fieldName));
     case (!isString(password) || !isString(repeatPassword)):
-      return ApiError.error(errors.incorrectType(fieldName));
+      return ApiError.error(errors.incorrectType(fieldName, 'string'));
     case (!regex.password.test(password)):
       return ApiError.error(errors.incorrectPasswordFormat());
     case (password !== repeatPassword):
