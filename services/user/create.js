@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { UserModels } = require('../../models');
 const { UserSchemas } = require('../../schemas');
 
-const { SALT_ROUNDS } = process.env;
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 module.exports = async (userData) => {
   UserSchemas.registerInput(userData);
