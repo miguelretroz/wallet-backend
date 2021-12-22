@@ -1,12 +1,17 @@
+const bcrypt = require('bcrypt');
 const { UserModels } = require('../../models');
 const { UserSchemas } = require('../../schemas');
 
-module.exports = async (userData) => {
-  const { repeatPassword, ...userDataWithoutRepeat } = userData;
+const { SALT_ROUNDS } = process.env;
 
+module.exports = async (userData) => {
   UserSchemas.registerInput(userData);
 
-  const newUser = UserModels.create(userDataWithoutRepeat);
+  const { repeatPassword, password, ...userDataWithoutPassword } = userData;
+
+  const encryptedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+  const newUser = UserModels.create({ ...userDataWithoutPassword, password: encryptedPassword });
 
   return newUser;
 };
