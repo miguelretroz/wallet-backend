@@ -5,5 +5,7 @@ module.exports = async (userData) => {
 
   const { insertedId } = await db.collection('user').insertOne(userData);
 
-  return { _id: insertedId, ...userData };
+  const { password, ...userDataWithoutPassword } = userData;
+
+  return { _id: insertedId, ...userDataWithoutPassword };
 };
