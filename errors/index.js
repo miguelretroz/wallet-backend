@@ -1,7 +1,7 @@
-const ApiError = require('./ApiError');
+const customError = require('./customError');
 const errors = require('./errors');
 
 module.exports = {
-  ApiError,
+  customError,
   errors,
 };

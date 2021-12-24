@@ -1,7 +1,7 @@
 const {
-  ApiError,
+  customError,
   errors,
-} = require('../../error');
+} = require('../../errors');
 
 const { regex } = require('../../helpers');
 
@@ -11,11 +11,11 @@ const hasMinSize = (data, minSize) => data.length >= minSize;
 const namesValidator = (field, fieldName, minLenght) => {
   switch (true) {
     case (!field):
-      return ApiError.error(errors.isRequired(fieldName));
+      return customError(errors.isRequired(fieldName));
     case (!isString(field)):
-      return ApiError.error(errors.incorrectType(fieldName, 'string'));
+      return customError(errors.incorrectType(fieldName, 'string'));
     case (!hasMinSize(field, minLenght)):
-      return ApiError.error(errors.shortLength(fieldName, minLenght));
+      return customError(errors.shortLength(fieldName, minLenght));
     default:
       return {};
   }
@@ -27,11 +27,11 @@ const emailValidator = (email) => {
 
   switch (true) {
     case (!email):
-      return ApiError.error(errors.isRequired(fieldName));
+      return customError(errors.isRequired(fieldName));
     case (!isString(email)):
-      return ApiError.error(errors.incorrectType(fieldName, 'string'));
+      return customError(errors.incorrectType(fieldName, 'string'));
     case (!regex.email.test(email)):
-      return ApiError.error(errors.incorrectFormat(fieldName, emailCorrectFormat));
+      return customError(errors.incorrectFormat(fieldName, emailCorrectFormat));
     default:
       return {};
   }
@@ -42,11 +42,11 @@ const birthDataValidator = (birthDate) => {
 
   switch (true) {
     case (!birthDate):
-      return ApiError.error(errors.isRequired(fieldName));
+      return customError(errors.isRequired(fieldName));
     case (!isString(birthDate)):
-      return ApiError.error(errors.incorrectType(fieldName, 'string'));
+      return customError(errors.incorrectType(fieldName, 'string'));
     case (!regex.date.test(birthDate)):
-      return ApiError.error(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
+      return customError(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
     default:
       return {};
   }
@@ -57,14 +57,14 @@ const passwordValidator = (password, repeatPassword) => {
   const fieldName = 'password and repeatName';
 
   switch (true) {
-    case (!password || repeatPassword):
-      return ApiError.error(errors.isREquired(fieldName));
+    case (!password || !repeatPassword):
+      return customError(errors.isRequired(fieldName));
     case (!isString(password) || !isString(repeatPassword)):
-      return ApiError.error(errors.incorrectType(fieldName, 'string'));
+      return customError(errors.incorrectType(fieldName, 'string'));
     case (!regex.password.test(password)):
-      return ApiError.error(errors.incorrectPasswordFormat());
+      return customError(errors.incorrectPasswordFormat());
     case (password !== repeatPassword):
-      return ApiError.error(errors.incorrectPasswordRepeat());
+      return customError(errors.incorrectPasswordRepeat());
     default:
       return {};
   }

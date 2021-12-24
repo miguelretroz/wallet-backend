@@ -1,11 +1,7 @@
-const { ApiError } = require('../error');
-
 module.exports = (err, _req, res, _next) => {
-  const { status, message } = err;
+  if (err.statusCode) return res.status(err.statusCode).json({ message: err.message });
 
-  const errorFormat = { err: { message } };
+  console.error(err);
 
-  if (err instanceof ApiError) return res.status(status).json(errorFormat);
-
-  res.status(500).json(errorFormat);
+  res.status(500).json({ message: 'Internal server error' });
 };
