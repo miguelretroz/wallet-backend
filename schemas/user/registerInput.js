@@ -3,7 +3,10 @@ const {
   errors,
 } = require('../../errors');
 
-const { regex } = require('../../helpers');
+const {
+  regex,
+  date,
+} = require('../../helpers');
 
 const isString = (data) => typeof data === 'string';
 const hasMinSize = (data, minSize) => data.length >= minSize;
@@ -45,8 +48,8 @@ const birthDataValidator = (birthDate) => {
       return customError(errors.isRequired(fieldName));
     case (!isString(birthDate)):
       return customError(errors.incorrectType(fieldName, 'string'));
-    case (!regex.date.test(birthDate)):
-      return customError(errors.incorrectFormat(fieldName, 'dd-mm-aaaa'));
+    case(!date.thisDateExits(birthDate)):
+      return customError(errors.invalidDate(fieldName));
     default:
       return {};
   }

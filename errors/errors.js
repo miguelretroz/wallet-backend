@@ -32,6 +32,11 @@ const incorrectPasswordFormat = () => ({
 });
 /* eslint-enable */
 
+const invalidDate = (fieldName) => ({
+  statusCode: BAD_REQUEST,
+  message: `${fieldName} is invalid date`,
+});
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -39,4 +44,5 @@ module.exports = {
   incorrectFormat,
   incorrectPasswordRepeat,
   incorrectPasswordFormat,
+  invalidDate,
 };
