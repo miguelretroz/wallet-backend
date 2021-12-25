@@ -43,6 +43,8 @@ const emailValidator = (email) => {
 const birthDataValidator = (birthDate) => {
   const fieldName = 'birthDate';
 
+  const userMinAge = 10;
+
   switch (true) {
     case (!birthDate):
       return customError(errors.isRequired(fieldName));
@@ -50,8 +52,10 @@ const birthDataValidator = (birthDate) => {
       return customError(errors.incorrectType(fieldName, 'string'));
     case (!date.hasTheCorrectFormat(birthDate)):
       return customError(errors.incorrectFormat(fieldName, 'mm-dd-aaaa'));
-    case(!date.thisDateExits(birthDate)):
+    case (!date.thisDateExits(birthDate)):
       return customError(errors.invalidDate(fieldName));
+    case (date.getYearsOld(birthDate) < userMinAge):
+      return customError(errors.userMinAge(userMinAge));
     default:
       return {};
   }

@@ -37,6 +37,11 @@ const invalidDate = (fieldName) => ({
   message: `${fieldName} is an invalid date`,
 });
 
+const userMinAge = (minAge) => ({
+  statusCode: BAD_REQUEST,
+  message: `user to be older than ${minAge} years`,
+})
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -45,4 +50,5 @@ module.exports = {
   incorrectPasswordRepeat,
   incorrectPasswordFormat,
   invalidDate,
+  userMinAge,
 };
