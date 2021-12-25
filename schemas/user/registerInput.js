@@ -11,12 +11,15 @@ const {
 const isString = (data) => typeof data === 'string';
 const hasMinSize = (data, minSize) => data.length >= minSize;
 
+const existsAndIsString = (field, fieldName) => {
+  if (!field) customError(errors.isRequired(fieldName));
+  if (!isString(field)) customError(errors.incorrectType(fieldName, 'string'));
+};
+
 const namesValidator = (field, fieldName, minLenght) => {
+  existsAndIsString(field, fieldName);
+
   switch (true) {
-    case (!field):
-      return customError(errors.isRequired(fieldName));
-    case (!isString(field)):
-      return customError(errors.incorrectType(fieldName, 'string'));
     case (!hasMinSize(field, minLenght)):
       return customError(errors.shortLength(fieldName, minLenght));
     default:
@@ -28,11 +31,9 @@ const emailValidator = (email) => {
   const fieldName = 'email';
   const emailCorrectFormat = 'email@email.com';
 
+  existsAndIsString(email, fieldName);
+
   switch (true) {
-    case (!email):
-      return customError(errors.isRequired(fieldName));
-    case (!isString(email)):
-      return customError(errors.incorrectType(fieldName, 'string'));
     case (!regex.email.test(email)):
       return customError(errors.incorrectFormat(fieldName, emailCorrectFormat));
     default:
@@ -45,11 +46,9 @@ const birthDataValidator = (birthDate) => {
 
   const userMinAge = 10;
 
+  existsAndIsString(birthDate, fieldName);
+
   switch (true) {
-    case (!birthDate):
-      return customError(errors.isRequired(fieldName));
-    case (!isString(birthDate)):
-      return customError(errors.incorrectType(fieldName, 'string'));
     case (!date.hasTheCorrectFormat(birthDate)):
       return customError(errors.incorrectFormat(fieldName, 'mm-dd-aaaa'));
     case (!date.thisDateExits(birthDate)):
@@ -61,15 +60,14 @@ const birthDataValidator = (birthDate) => {
   }
 };
 
-/* eslint-disable*/
 const passwordValidator = (password, repeatPassword) => {
-  const fieldName = 'password and repeatName';
+  const fieldNameOne = 'password';
+  const fieldNameTwo = 'repeatName';
+
+  existsAndIsString(password, fieldNameOne);
+  existsAndIsString(repeatPassword, fieldNameTwo);
 
   switch (true) {
-    case (!password || !repeatPassword):
-      return customError(errors.isRequired(fieldName));
-    case (!isString(password) || !isString(repeatPassword)):
-      return customError(errors.incorrectType(fieldName, 'string'));
     case (!regex.password.test(password)):
       return customError(errors.incorrectPasswordFormat());
     case (password !== repeatPassword):
@@ -78,7 +76,6 @@ const passwordValidator = (password, repeatPassword) => {
       return {};
   }
 };
-/*  eslint-enable */
 
 module.exports = (
   {
