@@ -48,6 +48,8 @@ const birthDataValidator = (birthDate) => {
       return customError(errors.isRequired(fieldName));
     case (!isString(birthDate)):
       return customError(errors.incorrectType(fieldName, 'string'));
+    case (!date.hasTheCorrectFormat(birthDate)):
+      return customError(errors.incorrectFormat(fieldName, 'mm-dd-aaaa'));
     case(!date.thisDateExits(birthDate)):
       return customError(errors.invalidDate(fieldName));
     default:
