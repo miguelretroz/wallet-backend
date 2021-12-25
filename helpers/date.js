@@ -21,7 +21,22 @@ const hasTheCorrectFormat =  (date) => {
   return dateFormatRegex.test(date);
 };
 
+// Solution inspired by -> https://stackoverflow.com/questions/8152426/how-can-i-calculate-the-number-of-years-between-two-dates
+const getYearsOld = (date) => {
+  const receivedDate = new Date(date);
+
+  const ageInMs = Date.now() - receivedDate;
+
+  const ageDate = new Date(ageInMs);
+
+  // Why 1970 -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#:~:text=Date.prototype.setTime,for%20times%20prior.
+  const yearsOld = ageDate.getUTCFullYear() - 1970;
+
+  return yearsOld;
+};
+
 module.exports =  {
   thisDateExits,
   hasTheCorrectFormat,
+  getYearsOld,
 };
