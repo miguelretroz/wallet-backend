@@ -34,7 +34,7 @@ const incorrectPasswordFormat = () => ({
 
 const invalidDate = (fieldName) => ({
   statusCode: BAD_REQUEST,
-  message: `${fieldName} is invalid date`,
+  message: `${fieldName} is an invalid date`,
 });
 
 module.exports = {
