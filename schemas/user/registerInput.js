@@ -13,6 +13,8 @@ const {
 } = require('../../helpers');
 
 const emailValidator = require('./emailValidator');
+const passwordValidator = require('./passwordValidator');
+
 const namesValidator = (field, fieldName, minLenght) => {
   existsAndIsString(field, fieldName);
 
@@ -43,12 +45,6 @@ const birthDataValidator = (birthDate) => {
   }
 };
 
-const passwordValidator = (password, fieldName) => {
-  existsAndIsString(password, fieldName);
-
-  if (!regex.password.test(password)) return customError(errors.incorrectPasswordFormat());
-};
-
 const passwordAndRepeatIsEqual = (password, repeatPassword) => {
   if (password !== repeatPassword) return customError(errors.incorrectPasswordRepeat());
 };
@@ -67,7 +63,7 @@ module.exports = (
   namesValidator(lastName, 'lastName', 4);
   emailValidator(email);
 
-  passwordValidator(password, 'password');
+  passwordValidator(password);
   passwordAndRepeatIsEqual(password, repeatPassword);
 
   birthDataValidator(birthDate);
