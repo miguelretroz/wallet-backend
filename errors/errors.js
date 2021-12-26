@@ -50,6 +50,11 @@ const userNotFound = () => ({
   message: 'user not found',
 });
 
+const incorrectPassword = () => ({
+  statusCode: BAD_REQUEST,
+  message: 'incorrect password',
+});
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -60,4 +65,5 @@ module.exports = {
   invalidDate,
   userMinAge,
   userNotFound,
+  incorrectPassword,
 };

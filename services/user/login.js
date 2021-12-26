@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const { UserSchemas } = require('../../schemas');
 const { UserModels } = require('../../models');
 
@@ -14,4 +16,8 @@ module.exports = async ({ email, password }) => {
   const user = await UserModels.getByEmail(email);
 
   if (!user) return customError(errors.userNotFound());
+
+  if (!(await bcrypt.compare(password, user.password))) {
+    return customError(errors.incorrectPassword());
+  }
 };
