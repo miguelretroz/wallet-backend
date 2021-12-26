@@ -4,17 +4,16 @@ const {
 } = require('../../errors');
 
 const {
-  regex,
   date,
 } = require('../../helpers');
 
-const isString = (data) => typeof data === 'string';
-const hasMinSize = (data, minSize) => data.length >= minSize;
+const {
+  hasMinSize,
+  existsAndIsString,
+} = require('../../helpers');
 
-const existsAndIsString = (field, fieldName) => {
-  if (!field) customError(errors.isRequired(fieldName));
-  if (!isString(field)) customError(errors.incorrectType(fieldName, 'string'));
-};
+const emailValidator = require('./emailValidator');
+const passwordValidator = require('./passwordValidator');
 
 const namesValidator = (field, fieldName, minLenght) => {
   existsAndIsString(field, fieldName);
@@ -22,20 +21,6 @@ const namesValidator = (field, fieldName, minLenght) => {
   switch (true) {
     case (!hasMinSize(field, minLenght)):
       return customError(errors.shortLength(fieldName, minLenght));
-    default:
-      return {};
-  }
-};
-
-const emailValidator = (email) => {
-  const fieldName = 'email';
-  const emailCorrectFormat = 'email@email.com';
-
-  existsAndIsString(email, fieldName);
-
-  switch (true) {
-    case (!regex.email.test(email)):
-      return customError(errors.incorrectFormat(fieldName, emailCorrectFormat));
     default:
       return {};
   }
@@ -60,21 +45,8 @@ const birthDataValidator = (birthDate) => {
   }
 };
 
-const passwordValidator = (password, repeatPassword) => {
-  const fieldNameOne = 'password';
-  const fieldNameTwo = 'repeatName';
-
-  existsAndIsString(password, fieldNameOne);
-  existsAndIsString(repeatPassword, fieldNameTwo);
-
-  switch (true) {
-    case (!regex.password.test(password)):
-      return customError(errors.incorrectPasswordFormat());
-    case (password !== repeatPassword):
-      return customError(errors.incorrectPasswordRepeat());
-    default:
-      return {};
-  }
+const passwordAndRepeatIsEqual = (password, repeatPassword) => {
+  if (password !== repeatPassword) return customError(errors.incorrectPasswordRepeat());
 };
 
 module.exports = (
@@ -90,6 +62,9 @@ module.exports = (
   namesValidator(firstName, 'firstName', 4);
   namesValidator(lastName, 'lastName', 4);
   emailValidator(email);
-  passwordValidator(password, repeatPassword);
+
+  passwordValidator(password);
+  passwordAndRepeatIsEqual(password, repeatPassword);
+
   birthDataValidator(birthDate);
 };
