@@ -25,12 +25,22 @@ const incorrectPasswordRepeat = () => ({
   message: 'password repeat must be equal password',
 });
 
-/* eslint-disable*/
 const incorrectPasswordFormat = () => ({
   statusCode: BAD_REQUEST,
-  message: '"password" must be have at least 8 characters long, 1 uppercase and 1 lowercase character, 1 number and 1 special character (!@#$%&*()-+_={}[]~^?)',
+  message: `"password" must be have at least 8 characters long,
+  1 uppercase and 1 lowercase character,
+  1 number and 1 special character (!@#$%&*()-+_={}[]~^?)`,
 });
-/* eslint-enable */
+
+const invalidDate = (fieldName) => ({
+  statusCode: BAD_REQUEST,
+  message: `${fieldName} is an invalid date`,
+});
+
+const userMinAge = (minAge) => ({
+  statusCode: BAD_REQUEST,
+  message: `user to be older than ${minAge} years`,
+});
 
 module.exports = {
   isRequired,
@@ -39,4 +49,6 @@ module.exports = {
   incorrectFormat,
   incorrectPasswordRepeat,
   incorrectPasswordFormat,
+  invalidDate,
+  userMinAge,
 };
