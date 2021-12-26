@@ -1,4 +1,7 @@
-const { BAD_REQUEST } = require('http-status-codes').StatusCodes;
+const {
+  BAD_REQUEST,
+  NOT_FOUND,
+} = require('http-status-codes').StatusCodes;
 
 const isRequired = (fieldName) => ({
   statusCode: BAD_REQUEST,
@@ -42,6 +45,11 @@ const userMinAge = (minAge) => ({
   message: `user to be older than ${minAge} years`,
 });
 
+const userNotFound = () => ({
+  statusCode: NOT_FOUND,
+  message: 'user not found',
+});
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -51,4 +59,5 @@ module.exports = {
   incorrectPasswordFormat,
   invalidDate,
   userMinAge,
+  userNotFound,
 };
