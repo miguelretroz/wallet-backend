@@ -8,13 +8,10 @@ const {
   date,
 } = require('../../helpers');
 
-const isString = (data) => typeof data === 'string';
-const hasMinSize = (data, minSize) => data.length >= minSize;
-
-const existsAndIsString = (field, fieldName) => {
-  if (!field) customError(errors.isRequired(fieldName));
-  if (!isString(field)) customError(errors.incorrectType(fieldName, 'string'));
-};
+const {
+  hasMinSize,
+  existsAndIsString,
+} = require('../../helpers');
 
 const namesValidator = (field, fieldName, minLenght) => {
   existsAndIsString(field, fieldName);

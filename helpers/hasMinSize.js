@@ -1,0 +1,1 @@
+module.exports = (data, minSize) => data.length >= minSize;
