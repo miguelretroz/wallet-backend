@@ -9,7 +9,7 @@ const OPTIONS = {
 
 let db = null;
 
-const connection = () => {
+const connection = async () => {
   try {
     return db
     || MongoClient.connect(MONGO_DB_URL, OPTIONS)
