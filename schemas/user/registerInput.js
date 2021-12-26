@@ -4,7 +4,6 @@ const {
 } = require('../../errors');
 
 const {
-  regex,
   date,
 } = require('../../helpers');
 
@@ -13,26 +12,13 @@ const {
   existsAndIsString,
 } = require('../../helpers');
 
+const emailValidator = require('./emailValidator');
 const namesValidator = (field, fieldName, minLenght) => {
   existsAndIsString(field, fieldName);
 
   switch (true) {
     case (!hasMinSize(field, minLenght)):
       return customError(errors.shortLength(fieldName, minLenght));
-    default:
-      return {};
-  }
-};
-
-const emailValidator = (email) => {
-  const fieldName = 'email';
-  const emailCorrectFormat = 'email@email.com';
-
-  existsAndIsString(email, fieldName);
-
-  switch (true) {
-    case (!regex.email.test(email)):
-      return customError(errors.incorrectFormat(fieldName, emailCorrectFormat));
     default:
       return {};
   }
