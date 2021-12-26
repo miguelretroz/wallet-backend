@@ -15,6 +15,7 @@ module.exports = async ({
     email,
     password,
     birthDate: new Date(birthDate).toISOString(),
+    creationDate: new Date(Date.now()).toISOString(),
   });
 
   return { _id: insertedId, firstName, lastName, email, birthDate };
