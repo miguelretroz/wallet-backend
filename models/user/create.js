@@ -1,11 +1,21 @@
 const connection = require('../connection');
 
-module.exports = async (userData) => {
+module.exports = async ({
+  firstName,
+  lastName,
+  email,
+  password,
+  birthDate,
+}) => {
   const db = await connection();
 
-  const { insertedId } = await db.collection('user').insertOne(userData);
+  const { insertedId } = await db.collection('user').insertOne({
+    firstName,
+    lastName,
+    email,
+    password,
+    birthDate: new Date(birthDate).toISOString(),
+  });
 
-  const { password, ...userDataWithoutPassword } = userData;
-
-  return { _id: insertedId, ...userDataWithoutPassword };
+  return { _id: insertedId, firstName, lastName, email, birthDate };
 };
