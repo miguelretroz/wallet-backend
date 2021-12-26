@@ -57,21 +57,14 @@ const birthDataValidator = (birthDate) => {
   }
 };
 
-const passwordValidator = (password, repeatPassword) => {
-  const fieldNameOne = 'password';
-  const fieldNameTwo = 'repeatName';
+const passwordValidator = (password, fieldName) => {
+  existsAndIsString(password, fieldName);
 
-  existsAndIsString(password, fieldNameOne);
-  existsAndIsString(repeatPassword, fieldNameTwo);
+  if (!regex.password.test(password)) return customError(errors.incorrectPasswordFormat());
+};
 
-  switch (true) {
-    case (!regex.password.test(password)):
-      return customError(errors.incorrectPasswordFormat());
-    case (password !== repeatPassword):
-      return customError(errors.incorrectPasswordRepeat());
-    default:
-      return {};
-  }
+const passwordAndRepeatIsEqual = (password, repeatPassword) => {
+  if (password !== repeatPassword) return customError(errors.incorrectPasswordRepeat());
 };
 
 module.exports = (
@@ -87,6 +80,9 @@ module.exports = (
   namesValidator(firstName, 'firstName', 4);
   namesValidator(lastName, 'lastName', 4);
   emailValidator(email);
-  passwordValidator(password, repeatPassword);
+
+  passwordValidator(password, 'password');
+  passwordAndRepeatIsEqual(password, repeatPassword);
+
   birthDataValidator(birthDate);
 };
