@@ -4,5 +4,6 @@ const router = express.Router({ mergeParams: true });
 
 router.post('/register', require('./create'));
 router.post('/login', require('./login'));
+router.get('/infos', require('./getInfos'));
 
 module.exports = router;
