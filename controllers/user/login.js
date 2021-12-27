@@ -1,8 +1,14 @@
 const rescue = require('express-rescue');
-const statusCodes = require('http-status-codes').StatusCodes;
+const { OK } = require('http-status-codes').StatusCodes;
+
+const { UserServices } = require('../../services');
 
 module.exports = rescue(
-  (req, res) => {
-    res.status(statusCodes.NOT_IMPLEMENTED).end();
+  async (req, res) => {
+    const { email, password } = req.body;
+
+    const token = await UserServices.login({ email, password });
+
+    res.status(OK).json({ token });
   },
 );
