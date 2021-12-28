@@ -13,9 +13,9 @@ const incorrectType = (fieldName, typeName) => ({
   message: `"${fieldName}" must be ${typeName}`,
 });
 
-const shortLength = (firstName, minLength) => ({
+const shortLength = (fieldName, minLength) => ({
   statusCode: BAD_REQUEST,
-  message: `"${firstName}" must have a length greater than or equal to ${minLength}`,
+  message: `"${fieldName}" must have a length greater than or equal to ${minLength}`,
 });
 
 const incorrectFormat = (fieldName, correctFormat) => ({
@@ -55,6 +55,11 @@ const incorrectPassword = () => ({
   message: 'incorrect password',
 });
 
+const minValue = (fieldName, correctValue) => ({
+  statusCode: BAD_REQUEST,
+  message: `${fieldName} must be greater than ${correctValue}`,
+});
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -66,4 +71,5 @@ module.exports = {
   userMinAge,
   userNotFound,
   incorrectPassword,
+  minValue,
 };
