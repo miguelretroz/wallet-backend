@@ -5,7 +5,13 @@ const {
   errors,
 } = require('../../errors');
 
-module.exports = async (userId) => {
+const {
+  ExpenseSchemas,
+} = require('../../schemas');
+
+module.exports = async (userId, expenseData) => {
   const user = await UserModels.getById(userId);
   if (!user) return customError(errors.userNotFound());
+
+  ExpenseSchemas.registerInputs(expenseData);
 };
