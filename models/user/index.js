@@ -1,9 +1,9 @@
 const create = require('./create');
-const login = require('./login');
 const getByEmail = require('./getByEmail');
+const getById = require('./getById');
 
 module.exports = {
   create,
-  login,
   getByEmail,
+  getById,
 };
