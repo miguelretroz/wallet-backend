@@ -21,5 +21,28 @@ const numericFieldValidator = (field, fieldName) => {
 };
 
 module.exports = ({
+  description,
+  value,
+  currency,
+  convertedValue,
+  convertedValueCurrency,
+  exchangeRate,
+  paymentMethod,
+  tag,
 }) => {
+  stringFieldsValidator(description, 'description', 3);
+
+  numericFieldValidator(value, 'value');
+
+  stringFieldsValidator(currency, 'currency', 2);
+
+  numericFieldValidator(convertedValue, 'convertedValue');
+
+  stringFieldsValidator(convertedValueCurrency, 'convertedValueCurrency', 3);
+
+  numericFieldValidator(exchangeRate, 'exchangeRate');
+
+  stringFieldsValidator(paymentMethod, 'paymentMethod', 3);
+
+  stringFieldsValidator(tag, 'tag', 3);
 };
