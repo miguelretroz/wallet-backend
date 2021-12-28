@@ -1,4 +1,7 @@
-const { UserModels } = require('../../models');
+const {
+  UserModels,
+  ExpenseModels,
+} = require('../../models');
 
 const {
   customError,
@@ -14,4 +17,8 @@ module.exports = async (userId, expenseData) => {
   if (!user) return customError(errors.userNotFound());
 
   ExpenseSchemas.registerInputs(expenseData);
+
+  const newExpense = await ExpenseModels.create({ ...expenseData, userId });
+
+  return newExpense;
 };

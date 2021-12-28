@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const statusCodes = require('http-status-codes').StatusCodes;
+const { OK } = require('http-status-codes').StatusCodes;
 
 const { ExpenseServices } = require('../../services');
 
@@ -23,6 +23,6 @@ module.exports = rescue(
       },
     );
 
-    res.status(statusCodes.NOT_IMPLEMENTED).end();
+    res.status(OK).json({ expense });
   },
 );
