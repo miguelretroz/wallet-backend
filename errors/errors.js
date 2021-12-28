@@ -55,6 +55,11 @@ const incorrectPassword = () => ({
   message: 'incorrect password',
 });
 
+const minValue = (fieldName, correctValue) => ({
+  statusCode: BAD_REQUEST,
+  message: `${fieldName} must be greater than ${correctValue}`,
+});
+
 module.exports = {
   isRequired,
   incorrectType,
@@ -66,4 +71,5 @@ module.exports = {
   userMinAge,
   userNotFound,
   incorrectPassword,
+  minValue,
 };
