@@ -1,7 +1,7 @@
 const UserServices = require('./user');
-const ExpenseService = require('./expense');
+const ExpenseServices = require('./expense');
 
 module.exports = {
   UserServices,
-  ExpenseService,
+  ExpenseServices,
 };
